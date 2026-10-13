@@ -33,11 +33,11 @@ echo "" >&2
 
 # Find tags pointing to this git ref that match the expected version pattern
 # Pattern: v2.16-20260901T1200Z or v2.16-20260901T1200Z-dev
-MATCHING_TAGS=$(git tag --points-at "$GIT_REF" | grep -E "^v?${MINOR}-[0-9]{8}T[0-9]{6}Z(-dev)?$" || true)
+MATCHING_TAGS=$(git tag --points-at "$GIT_REF" | grep -E "^v?${MINOR}-[0-9]{8}T[0-9]{4}Z(-dev)?$" || true)
 
 if [ -z "$MATCHING_TAGS" ]; then
   echo "ERROR: No image tag found for commit $GIT_REF with version $MINOR" >&2
-  echo "Expected tag format: v${MINOR}-YYYYMMDDTHHMMSSz[-dev]" >&2
+  echo "Expected tag format: v${MINOR}-YYYYMMDDTHHMMZ[-dev]" >&2
   echo "" >&2
   echo "Available tags for this commit:" >&2
   git tag --points-at "$GIT_REF" || echo "  (none)" >&2
