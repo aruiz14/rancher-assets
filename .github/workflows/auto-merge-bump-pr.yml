@@ -1,7 +1,7 @@
 name: Auto Merge Bump PR
 
 # Auto-approves and merges the daily "Bump chart references" PR opened by
-# pr-builder-cron.yml, once its CI checks pass. Ported from rancher/charts'
+# pr-builder-cron.yml, once its CI checks pass.
 
 on:
   pull_request:
@@ -13,6 +13,7 @@ jobs:
   auto-merge:
     name: Auto-merge bump PR
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: >-
       github.event.pull_request.user.login == 'rancher-pr-actions-write[bot]' &&
       contains(github.event.pull_request.labels.*.name, 'status/auto-created') &&
@@ -42,17 +43,32 @@ jobs:
           REQUIRED_CHECKS=("Lint" "Test & Verify" "summary")
 
           for CHECK_NAME in "${REQUIRED_CHECKS[@]}"; do
+
             echo "Waiting for check: $CHECK_NAME"
             while true; do
-              STATUS=$(gh pr checks "$PR_NUMBER" --repo "$REPO" --json name,state --jq --arg name "$CHECK_NAME" '
-                map(select(.name == $name)) | .[0].state // "PENDING"
-              ')
+
+              # gh's own --jq flag takes exactly one arg (the filter string) and has no --arg support,
+              # so we pipe into the real jq binary instead to parameterize CHECK_NAME safely.
+              # Unlike gh's --jq (which auto-strips quotes from scalar results),
+              # real jq keeps JSON string quoting by default
+              # - output is "SUCCESS", not SUCCESS -
+              # which breaks a bare `case "$STATUS" in SUCCESS)` - match unless -r (raw output) is added to jq.
+              STATUS=$(
+                  gh pr checks "$PR_NUMBER" \
+                      --repo "$REPO" \
+                      --json name,state \
+                      | jq -r --arg name "$CHECK_NAME" \
+                      'map(select(.name == $name)) | .[0].state // "PENDING"'
+              )
+
+              echo "STATUS: ${STATUS}"
               case "$STATUS" in
-                PENDING|IN_PROGRESS|QUEUED) sleep 60 ;;
-                SUCCESS) echo "  ✓ $CHECK_NAME succeeded"; break ;;
-                FAILURE|ERROR|CANCELLED) echo "  ✗ $CHECK_NAME failed ($STATUS)"; exit 1 ;;
+                PENDING|IN_PROGRESS|QUEUED)     echo "sleeping 30" && sleep 30 ;;
+                SUCCESS)                        echo "  ✓ $CHECK_NAME succeeded"; break ;;
+                FAILURE|ERROR|CANCELLED)        echo "  ✗ $CHECK_NAME failed ($STATUS)"; exit 1 ;;
                 *) sleep 30 ;;
               esac
+
             done
           done
 
