@@ -7,26 +7,26 @@ chart-versions:
                     branch: production
                     commit: cf134068e48fd6de4a50ddaa5453be22235f7ee1
                 partner:
-                    fetched-at: 2026-11-18T11:11:29.985563523Z
+                    fetched-at: 2026-11-19T01:56:17.660721305Z
                     branch: main
-                    commit: ed3e82b4b3c80872ea9530fee9c74627c6ffe9d8
+                    commit: a5ffe5d209fb906a6857d27f76744c9fe2be5a2f
                 rke2:
-                    fetched-at: 2026-11-18T21:04:36.077212527Z
+                    fetched-at: 2026-11-19T01:56:18.387119132Z
                     branch: main
-                    commit: 1dffca5ea3ba0f66111a3774dd138fa24017f07f
+                    commit: 26bb83d9314ca89236726f742fe2a8f4d37aff72
             dev:
                 charts:
-                    fetched-at: 2026-11-18T21:04:36.9773553Z
+                    fetched-at: 2026-11-19T01:56:19.301852049Z
                     branch: staging
-                    commit: f4a05aafc02c14c8fff799f46d83b2ad5eacbe60
+                    commit: 5647b0af6441d913f617f36ce3761883b8f8f083
                 partner:
-                    fetched-at: 2026-11-18T11:11:31.078657116Z
+                    fetched-at: 2026-11-19T01:56:20.001714767Z
                     branch: main
-                    commit: ed3e82b4b3c80872ea9530fee9c74627c6ffe9d8
+                    commit: a5ffe5d209fb906a6857d27f76744c9fe2be5a2f
                 rke2:
-                    fetched-at: 2026-11-18T21:04:38.14647331Z
+                    fetched-at: 2026-11-19T01:56:20.632778766Z
                     branch: main
-                    commit: 1dffca5ea3ba0f66111a3774dd138fa24017f07f
+                    commit: 26bb83d9314ca89236726f742fe2a8f4d37aff72
 base-image:
     bci-base: 16.0@sha256:ecda7b3f321d048b78f4c595961343f29683832998b90aa69bf5ac263d083943
     bci-micro: 16.0@sha256:a83dd744de9ec76debfd163f16eee7ffc91963baaf0135d7f53f2e42244976aa
@@ -34,5 +34,5 @@ copy-script-hash: 37114795bbe1faac92fcc3219079a402f3a665e0494d27b6f6c40cc0527da0
 template-hashes:
     prod-template: 0f5da962310a3e6e1c9cd5049c220a87a128f55d9e837da1a9b564455c9f7a94
     dev-template: 2067882403229f4caf4309ff3f8976277a117dd7de649c43b16015256c8d9e36
-generated-at: 2026-11-18T21:04:38.146486784Z
+generated-at: 2026-11-19T01:56:20.632796462Z
 generator-version: v0.1.0
