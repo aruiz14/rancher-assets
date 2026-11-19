@@ -11,22 +11,22 @@ chart-versions:
                     branch: main
                     commit: a5ffe5d209fb906a6857d27f76744c9fe2be5a2f
                 rke2:
-                    fetched-at: 2026-11-19T01:56:18.387119132Z
+                    fetched-at: 2026-11-19T18:50:02.835182457Z
                     branch: main
-                    commit: 26bb83d9314ca89236726f742fe2a8f4d37aff72
+                    commit: 8a8d3189c2937423fc37735f25824c481699e8f2
             dev:
                 charts:
-                    fetched-at: 2026-11-19T01:56:19.301852049Z
+                    fetched-at: 2026-11-19T18:50:03.577678555Z
                     branch: staging
-                    commit: 5647b0af6441d913f617f36ce3761883b8f8f083
+                    commit: 04943b160d6bbd00ad4eda11fe3b0338e2b5bc0d
                 partner:
                     fetched-at: 2026-11-19T01:56:20.001714767Z
                     branch: main
                     commit: a5ffe5d209fb906a6857d27f76744c9fe2be5a2f
                 rke2:
-                    fetched-at: 2026-11-19T01:56:20.632778766Z
+                    fetched-at: 2026-11-19T18:50:04.873603725Z
                     branch: main
-                    commit: 26bb83d9314ca89236726f742fe2a8f4d37aff72
+                    commit: 8a8d3189c2937423fc37735f25824c481699e8f2
 base-image:
     bci-base: 16.0@sha256:ecda7b3f321d048b78f4c595961343f29683832998b90aa69bf5ac263d083943
     bci-micro: 16.0@sha256:a83dd744de9ec76debfd163f16eee7ffc91963baaf0135d7f53f2e42244976aa
@@ -34,5 +34,5 @@ copy-script-hash: 37114795bbe1faac92fcc3219079a402f3a665e0494d27b6f6c40cc0527da0
 template-hashes:
     prod-template: 0f5da962310a3e6e1c9cd5049c220a87a128f55d9e837da1a9b564455c9f7a94
     dev-template: 2067882403229f4caf4309ff3f8976277a117dd7de649c43b16015256c8d9e36
-generated-at: 2026-11-19T01:56:20.632796462Z
+generated-at: 2026-11-19T18:50:04.873657566Z
 generator-version: v0.1.0
