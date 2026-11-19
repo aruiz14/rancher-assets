@@ -4,7 +4,11 @@
 # DEV Dockerfile - uses dev branches and commits
 
 FROM --platform=$BUILDPLATFORM registry.suse.com/bci/bci-base:{{.BciBaseVersion}} AS builder
-RUN zypper refresh && zypper -n install git-core
+RUN zypper refresh && zypper -n install git-core && \
+    zypper ar -f https://rpm.rancher.io/pkgs/prime pkgs && \
+    rpm --import https://raw.githubusercontent.com/rancher/rancher/refs/heads/main/rancher-rpm-pkgs.key && \
+    zypper -n in -r pkgs helm4 yq && \
+    ln -s /usr/bin/helm4 /usr/bin/helm
 
 # Clone rancher-charts repository (DEV)
 FROM --platform=$BUILDPLATFORM builder AS rancher-charts
@@ -15,6 +19,10 @@ RUN mkdir -p /var/lib/rancher-data/local-catalogs/v2 && \
     git remote add origin {{(index .ClusterRepos "charts").URL}} && \
     git fetch --depth 1 origin {{.DevChartCommit}} && \
     git update-ref --no-deref HEAD FETCH_HEAD
+
+# rancher/charts may no longer contain charts tarballs under `assets/`, but they are needed for airgap environments
+COPY scripts/reconstruct-assets-dir.sh /reconstruct-assets-dir.sh
+RUN /reconstruct-assets-dir.sh {{(index .ClusterRepos "charts").Path}}
 
 # Clone partner-charts repository (DEV)
 FROM --platform=$BUILDPLATFORM builder AS partner-charts
